@@ -1,0 +1,94 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.orlanth23.popularmovie.fragment.DetailMovieFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/movie_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Mon Titre de film"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="20dp"
+            android:textSize="20sp"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorAccent"
+            android:layout_marginBottom="20dp"/>
+
+        <ImageView
+            android:id="@+id/movie_detail_poster"
+            android:layout_width="135dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:layout_below="@id/movie_detail_title"
+            android:src="@mipmap/ic_doctor_strange"
+            android:contentDescription="ContentDescription" />
+
+        <TextView
+            android:id="@+id/movie_detail_releaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/movie_detail_poster"
+            android:layout_below="@id/movie_detail_title"
+            android:text="2016-10-01"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/movie_detail_voteAverage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="7.8"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:layout_toRightOf="@id/movie_detail_poster"
+            android:layout_toEndOf="@id/movie_detail_poster"
+            android:layout_below="@id/movie_detail_releaseDate"/>
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:src="@mipmap/ic_star"
+            android:layout_toRightOf="@id/movie_detail_voteAverage"
+            android:layout_toEndOf="@id/movie_detail_voteAverage"
+            android:layout_below="@id/movie_detail_releaseDate"/>
+
+        <TextView
+            android:id="@+id/movie_detail_tagline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@id/movie_detail_poster"
+            android:layout_below="@id/movie_detail_voteAverage"
+            android:text="Ma TagLine"
+            android:textSize="10sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textStyle="normal|italic" />
+
+        <TextView
+            android:id="@+id/movie_detail_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ceci est ma description du film !!"
+            android:layout_below="@+id/movie_detail_poster"
+            android:layout_alignLeft="@+id/movie_detail_poster"
+            android:layout_alignStart="@+id/movie_detail_poster"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"/>
+    </RelativeLayout>
+</ScrollView>
