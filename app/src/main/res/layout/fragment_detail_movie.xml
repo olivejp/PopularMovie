@@ -6,20 +6,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <TextView
             android:id="@+id/movie_detail_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Mon Titre de film"
             android:textStyle="bold"
             android:gravity="center"
             android:padding="20dp"
             android:textSize="20sp"
             android:textColor="@color/colorWhite"
             android:background="@color/colorAccent"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="10dp"/>
 
         <ImageView
             android:id="@+id/movie_detail_poster"
@@ -27,68 +24,68 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             android:layout_below="@id/movie_detail_title"
-            android:src="@mipmap/ic_doctor_strange"
-            android:contentDescription="ContentDescription" />
+            android:contentDescription="@string/defaultcontentdescription" />
+
+        <TextView
+            android:id="@+id/static_release_date"
+            style="@style/DetailMovieStaticField"
+            android:layout_toRightOf="@id/movie_detail_poster"
+            android:layout_toEndOf="@id/movie_detail_poster"
+            android:layout_below="@id/movie_detail_title"
+            android:text="@string/release_date" />
 
         <TextView
             android:id="@+id/movie_detail_releaseDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@id/movie_detail_poster"
+            android:layout_toRightOf="@id/static_release_date"
+            android:layout_toEndOf="@id/static_release_date"
             android:layout_below="@id/movie_detail_title"
-            android:text="2016-10-01"
             android:textSize="15sp"
             android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/static_voteAverage"
+            style="@style/DetailMovieStaticField"
+            android:layout_toRightOf="@id/movie_detail_poster"
+            android:layout_toEndOf="@id/movie_detail_poster"
+            android:layout_below="@id/static_release_date"
+            android:text="@string/vote_average" />
 
         <TextView
             android:id="@+id/movie_detail_voteAverage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
-            android:text="7.8"
             android:textSize="15sp"
             android:textStyle="normal"
-            android:layout_toRightOf="@id/movie_detail_poster"
-            android:layout_toEndOf="@id/movie_detail_poster"
-            android:layout_below="@id/movie_detail_releaseDate"/>
-
-        <ImageView
-            android:layout_width="17dp"
-            android:layout_height="17dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:src="@mipmap/ic_star"
-            android:layout_toRightOf="@id/movie_detail_voteAverage"
-            android:layout_toEndOf="@id/movie_detail_voteAverage"
-            android:layout_below="@id/movie_detail_releaseDate"/>
+            android:layout_toRightOf="@id/static_voteAverage"
+            android:layout_toEndOf="@id/static_voteAverage"
+            android:layout_below="@id/static_release_date"/>
 
         <TextView
-            android:id="@+id/movie_detail_tagline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@id/movie_detail_poster"
-            android:layout_below="@id/movie_detail_voteAverage"
-            android:text="Ma TagLine"
-            android:textSize="10sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:textStyle="normal|italic" />
-
+            android:id="@+id/static_overview"
+            style="@style/DetailMovieStaticField"
+            android:layout_below="@+id/static_voteAverage"
+            android:layout_alignLeft="@+id/static_voteAverage"
+            android:layout_alignStart="@+id/static_voteAverage"
+            android:text="@string/overview"/>
         <TextView
             android:id="@+id/movie_detail_overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ceci est ma description du film !!"
-            android:layout_below="@+id/movie_detail_poster"
-            android:layout_alignLeft="@+id/movie_detail_poster"
-            android:layout_alignStart="@+id/movie_detail_poster"
+            android:layout_below="@+id/static_overview"
+            android:layout_alignLeft="@+id/static_overview"
+            android:layout_alignStart="@+id/static_overview"
             android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="10dp" />
     </RelativeLayout>
 </ScrollView>

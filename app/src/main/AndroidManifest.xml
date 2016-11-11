@@ -30,11 +30,7 @@
                 android:value="com.orlanth23.popularmovie.activity.MainActivity" />
         </activity>
         <activity
-            android:name=".activity.DetailMovieActivity"
-            android:parentActivityName=".activity.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.orlanth23.popularmovie.activity.MainActivity"/>
+            android:name=".activity.DetailMovieActivity">
         </activity>
     </application>
 

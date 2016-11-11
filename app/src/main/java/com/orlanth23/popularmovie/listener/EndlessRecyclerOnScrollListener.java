@@ -11,15 +11,12 @@ import android.support.v7.widget.RecyclerView;
 public abstract class EndlessRecyclerOnScrollListener extends
         RecyclerView.OnScrollListener {
 
-    int firstVisibleItem, visibleItemCount, totalItemCount;
     private int previousTotal = 0;
     private boolean loading = true;
-    private int visibleThreshold = 20;
-    private int current_page = 1;
 
     private LinearLayoutManager linearLayoutManager;
 
-    public EndlessRecyclerOnScrollListener(
+    protected EndlessRecyclerOnScrollListener(
             LinearLayoutManager linearLayoutManager) {
         this.linearLayoutManager = linearLayoutManager;
     }
@@ -29,14 +26,13 @@ public abstract class EndlessRecyclerOnScrollListener extends
         super.onScrollStateChanged(recyclerView, newState);
     }
 
-
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-
-        visibleItemCount = linearLayoutManager.getChildCount();
-        totalItemCount = linearLayoutManager.getItemCount();
-        firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
+        int visibleThreshold = 20;
+        int visibleItemCount = linearLayoutManager.getChildCount();
+        int totalItemCount = linearLayoutManager.getItemCount();
+        int firstVisibleItem = linearLayoutManager.findFirstVisibleItemPosition();
 
         if (loading) {
             if (totalItemCount > previousTotal) {
@@ -44,13 +40,10 @@ public abstract class EndlessRecyclerOnScrollListener extends
                 previousTotal = totalItemCount;
             }
         }
+
         if (!loading
                 && (totalItemCount - visibleItemCount) <= (firstVisibleItem + visibleThreshold)) {
-
-            current_page++;
-
             onLoadMore();
-
             loading = true;
         }
     }

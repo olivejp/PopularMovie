@@ -1,11 +1,11 @@
 package com.orlanth23.popularmovie.fragment;
 
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -34,25 +34,27 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends CustomChangeTitleFragment {
+
+    public static final String TAG = MainActivity.class.getSimpleName();
+
+    private static final String BUNDLE_ARRAY_LIST = "BUNDLE_ARRAY_LIST";
+    private static final String BUNDLE_CURRENT_PAGE = "BUNDLE_CURRENT_PAGE";
+
+    private static final int NB_COLUMN_PORT = 2;
+    private static final int NB_COLUMN_LAND = 4;
 
     private int currentPage;
     private MovieAdapter movieAdapter;
     private RecyclerView recyclerView;
     private ArrayList<Movie> arrayListMovie;
-    public static final String TAG = MainActivity.class.getSimpleName();
-    private static final int NB_COLUMN_PORT = 2;
-    private static final int NB_COLUMN_LAND = 4;
-    private static final String BUNDLE_ARRAY_LIST = "BUNDLE_ARRAY_LIST";
-    private static boolean firstTime;
+    private MovieDbAPI movieDbAPI;
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void onStart() {
         super.onStart();
-        if (firstTime) {
-            currentPage = 1;
-            loadData(currentPage);
-        }
+        loadData(currentPage);
     }
 
     @Override
@@ -62,36 +64,44 @@ public class MainFragment extends Fragment {
 
         if (savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_ARRAY_LIST)){
             arrayListMovie = savedInstanceState.getParcelableArrayList(BUNDLE_ARRAY_LIST);
-            firstTime = false;
+            currentPage = savedInstanceState.getInt(BUNDLE_CURRENT_PAGE);
         } else {
             arrayListMovie = new ArrayList<>();
-            firstTime = true;
+            currentPage = 1;
         }
 
+        // inflate the fragment_main
         View fragmentView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        // on récupère le recyclerVIew
+        // get the recyclerVIew
         recyclerView = (RecyclerView) fragmentView.findViewById(R.id.recycler_view);
         if (recyclerView != null){
             recyclerView.setHasFixedSize(true);
         }
 
-        int nb_column;
-        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            nb_column = NB_COLUMN_PORT;
-        }else{
-            nb_column = NB_COLUMN_LAND;
-        }
+        // change title depending on the preference - we use the abstract class CustomChangeTitle
+        changeTitleFragment();
 
-        // on utilise un GridLayoutManager
+        // change the number of column depending on the screen orientation
+        Configuration config = getActivity().getResources().getConfiguration();
+        int nb_column = (config.orientation == Configuration.ORIENTATION_PORTRAIT) ? NB_COLUMN_PORT : NB_COLUMN_LAND;
+
+        // we use a GridLayoutManager
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), nb_column);
         recyclerView.setLayoutManager(gridLayoutManager);
 
-        // on créé un MovieAdapter
+        // create a MovieAdapter
         movieAdapter = new MovieAdapter(getActivity(), arrayListMovie);
         recyclerView.setAdapter(movieAdapter);
 
-        // On créé un listener
+        // call the retrofit builder
+        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.MOVIE_DB_API_URL).addConverterFactory(GsonConverterFactory.create()).build();
+        movieDbAPI = retrofit.create(MovieDbAPI.class);
+
+        // load the preferences
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+        // create a listener to scroll
         recyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(gridLayoutManager) {
             @Override
             public void onLoadMore() {
@@ -99,6 +109,7 @@ public class MainFragment extends Fragment {
             }
         });
 
+        // we want to see the options menu
         setHasOptionsMenu(true);
 
         return fragmentView;
@@ -106,17 +117,20 @@ public class MainFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_settings){
-            Intent intent = new Intent();
-            intent.setClass(getActivity(), SettingsActivity.class);
-            startActivity(intent);
-            return true;
+        switch (item.getItemId()){
+            case R.id.menu_settings:
+                // launch the settings activity
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), SettingsActivity.class);
+                startActivity(intent);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // inflate the menu
         menu.clear();
         inflater.inflate(R.menu.menu_main_fragment, menu);
         super.onCreateOptionsMenu(menu, inflater);
@@ -124,15 +138,16 @@ public class MainFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        // we save the arrayListMovie and the currentPage
         outState.putParcelableArrayList(BUNDLE_ARRAY_LIST, arrayListMovie);
+        outState.putInt(BUNDLE_CURRENT_PAGE, currentPage);
         super.onSaveInstanceState(outState);
     }
 
     private Callback<ResultListMovie> callback = new Callback<ResultListMovie>() {
-
         @Override
         public void onResponse(Call<ResultListMovie> call, Response<ResultListMovie> response) {
-            try{
+            try {
                 ArrayList<Movie> p_arrayList = response.body().getResults();
                 if (p_arrayList != null) {
                     for (Movie movie : p_arrayList) {
@@ -142,27 +157,21 @@ public class MainFragment extends Fragment {
                         }
                     }
                 }
-            } catch (Exception e){
-                Log.d("OnResponse","Big trouble in little china");
+            } catch (Exception e) {
+                Log.d("Callback - OnResponse", "Big trouble in little china");
                 e.printStackTrace();
             }
         }
 
         @Override
         public void onFailure(Call<ResultListMovie> call, Throwable t) {
-            Log.d("onFailure", t.toString());
+            Log.d("Callback - onFailure", t.toString());
         }
     };
 
     private void loadData(int p_currentPage) {
-
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(Constants.MOVIE_DB_API_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        MovieDbAPI movieDbAPI = retrofit.create(MovieDbAPI.class);
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
         Call<ResultListMovie> callbackApi = null;
-        switch (prefs.getString(getString(R.string.pref_key_list_sort), getString(R.string.pref_popular_movies_title))){
+        switch (sharedPreferences.getString(getString(R.string.pref_key_list_sort), getString(R.string.popularMovies))){
             case "popularMovies":
                 callbackApi = movieDbAPI.getPopularMovies(Constants.MOVIE_DB_API_KEY, p_currentPage);
                 break;

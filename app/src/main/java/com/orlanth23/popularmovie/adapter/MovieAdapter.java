@@ -25,10 +25,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     private Picasso picasso;
     private Context context;
 
-    public MovieAdapter(Context pcontext, ArrayList<Movie> pmovies) {
-        movies = pmovies;
-        picasso = Picasso.with(pcontext);
-        context = pcontext;
+    public MovieAdapter(Context p_context, ArrayList<Movie> p_movies) {
+        movies = p_movies;
+        picasso = Picasso.with(p_context);
+        context = p_context;
     }
 
     @Override
@@ -44,7 +44,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         picasso.load(Constants.IMAGE_BASE_URL.concat(Constants.IMAGE_WIDTH_URL).concat(movie.getPoster_path())).into(holder.movieThumbnail);
 
         holder.movieThumbnail.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
@@ -65,9 +64,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-
         ImageView movieThumbnail;
-
         ViewHolder(View itemView) {
             super(itemView);
             movieThumbnail = (ImageView) itemView.findViewById(R.id.movie_thumbnail);
