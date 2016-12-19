@@ -32,6 +32,10 @@
         <activity
             android:name=".activity.DetailMovieActivity">
         </activity>
+        <provider
+            android:exported="false"
+            android:authorities="com.orlanth23.popularmovie"
+            android:name=".provider.MovieProvider"/>
     </application>
 
 </manifest>

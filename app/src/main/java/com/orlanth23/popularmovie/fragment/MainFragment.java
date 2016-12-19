@@ -148,12 +148,15 @@ public class MainFragment extends CustomChangeTitleFragment {
         @Override
         public void onResponse(Call<ResultListMovie> call, Response<ResultListMovie> response) {
             try {
-                ArrayList<Movie> p_arrayList = response.body().getResults();
-                if (p_arrayList != null) {
-                    for (Movie movie : p_arrayList) {
-                        arrayListMovie.add(movie);
-                        if (!recyclerView.isComputingLayout()) {
-                            movieAdapter.notifyItemInserted(arrayListMovie.indexOf(movie));
+                if (response.body() != null){
+                    ResultListMovie rsp = response.body();
+                    ArrayList<Movie> p_arrayList = rsp.getResults();
+                    if (p_arrayList != null) {
+                        for (Movie movie : p_arrayList) {
+                            arrayListMovie.add(movie);
+                            if (!recyclerView.isComputingLayout()) {
+                                movieAdapter.notifyItemInserted(arrayListMovie.indexOf(movie));
+                            }
                         }
                     }
                 }
