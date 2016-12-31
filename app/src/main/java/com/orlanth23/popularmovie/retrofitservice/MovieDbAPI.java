@@ -3,7 +3,7 @@ package com.orlanth23.popularmovie.retrofitservice;
 
 import com.orlanth23.popularmovie.model.ResultListMovie;
 import com.orlanth23.popularmovie.model.ResultListReview;
-import com.orlanth23.popularmovie.model.ResultListVideos;
+import com.orlanth23.popularmovie.model.ResultListTrailers;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -17,9 +17,9 @@ public interface MovieDbAPI {
     @GET("movie/top_rated")
     Call<ResultListMovie> getTopRated(@Query("api_key") String api_key, @Query("page") int page);
 
-    @GET("movie/{id}/videos")
-    Call<ResultListVideos> getVideos(@Query("api_key") String api_key, @Path("movie_id") int movie_id);
+    @GET("movie/{movie_id}/videos")
+    Call<ResultListTrailers> getTrailers(@Path("movie_id") int movie_id, @Query("api_key") String api_key);
 
-    @GET("movie/{id}/reviews")
-    Call<ResultListReview> getReviews(@Query("api_key") String api_key, @Path("movie_id") int movie_id);
+    @GET("movie/{movie_id}/reviews")
+    Call<ResultListReview> getReviews(@Path("movie_id") int movie_id, @Query("api_key") String api_key,  @Query("page") int page);
 }

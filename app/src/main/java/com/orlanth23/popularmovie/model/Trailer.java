@@ -3,7 +3,7 @@ package com.orlanth23.popularmovie.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Video  implements Parcelable {
+public class Trailer implements Parcelable {
 
     private String id;
     private String iso_639_1;
@@ -14,7 +14,7 @@ public class Video  implements Parcelable {
     private int size;
     private String type;
 
-    protected Video(Parcel in) {
+    protected Trailer(Parcel in) {
         id = in.readString();
         iso_639_1 = in.readString();
         iso_3166_1 = in.readString();
@@ -25,15 +25,15 @@ public class Video  implements Parcelable {
         type = in.readString();
     }
 
-    public static final Creator<Video> CREATOR = new Creator<Video>() {
+    public static final Creator<Trailer> CREATOR = new Creator<Trailer>() {
         @Override
-        public Video createFromParcel(Parcel in) {
-            return new Video(in);
+        public Trailer createFromParcel(Parcel in) {
+            return new Trailer(in);
         }
 
         @Override
-        public Video[] newArray(int size) {
-            return new Video[size];
+        public Trailer[] newArray(int size) {
+            return new Trailer[size];
         }
     };
 

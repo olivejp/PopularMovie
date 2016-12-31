@@ -13,6 +13,10 @@ public class Movie implements Parcelable{
     private String release_date;
     private double vote_average;
 
+    public Movie(){
+        // Empty constructor
+    }
+
     public Movie(String backdrop_path, int id, String imdb_id, String original_title, String overview, String poster_path, String release_date, double vote_average) {
         this.backdrop_path = backdrop_path;
         this.id = id;
@@ -63,6 +67,42 @@ public class Movie implements Parcelable{
 
     public double getVote_average() {
         return vote_average;
+    }
+
+    public String getBackdrop_path() {
+        return backdrop_path;
+    }
+
+    public void setBackdrop_path(String backdrop_path) {
+        this.backdrop_path = backdrop_path;
+    }
+
+    public String getImdb_id() {
+        return imdb_id;
+    }
+
+    public void setImdb_id(String imdb_id) {
+        this.imdb_id = imdb_id;
+    }
+
+    public void setOriginal_title(String original_title) {
+        this.original_title = original_title;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
+    }
+
+    public void setVote_average(double vote_average) {
+        this.vote_average = vote_average;
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {

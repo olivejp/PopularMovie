@@ -13,10 +13,10 @@
         <activity
             android:name=".activity.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name"
-            android:theme="@style/FullscreenTheme">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -29,13 +29,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.orlanth23.popularmovie.activity.MainActivity" />
         </activity>
-        <activity
-            android:name=".activity.DetailMovieActivity">
+        <activity android:name=".activity.DetailMovieActivity"
+            android:label="@string/title_movie_detail"
+            android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.orlanth23.popularmovie.activity.MainActivity" />
         </activity>
+
         <provider
-            android:exported="false"
+            android:name=".provider.MovieProvider"
             android:authorities="com.orlanth23.popularmovie"
-            android:name=".provider.MovieProvider"/>
+            android:exported="false" />
+
     </application>
 
 </manifest>

@@ -22,6 +22,9 @@ public abstract class CustomChangeTitleFragment extends Fragment{
                 case "topRated":
                     actionBar.setTitle(R.string.pref_top_rated_title);
                     break;
+                case "favorite":
+                    actionBar.setTitle(R.string.pref_favorite_title);
+                    break;
             }
         }
     }

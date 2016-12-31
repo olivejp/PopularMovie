@@ -27,7 +27,7 @@ public class FullscreenActivity extends AppCompatActivity {
         // otherwise the handler is called with a time = 0 and then go directly to the MainActivity.
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (prefs.getBoolean(getString(R.string.pref_key_display_screen), true)) {
-            time = 1500;
+            time = 500;
             setContentView(R.layout.activity_fullscreen);
             ActionBar actionBar = getSupportActionBar();
             if (actionBar != null) {

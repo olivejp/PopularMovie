@@ -26,8 +26,11 @@ public class MovieProvider extends ContentProvider {
         return matcher;
     }
 
-    private static final String sSelectionMovieById =
+    public static final String sSelectionMovieById =
             MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry._ID + " = ?";
+
+    public static final String sSelectionMovieByTitle =
+            MovieContract.MovieEntry.TABLE_NAME + "." + MovieContract.MovieEntry.COLUMN_ORIGINAL_TITLE + " = ?";
 
     @Override
     public boolean onCreate() {

@@ -43,13 +43,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         final Movie movie = movies.get(position);
         picasso.load(Constants.IMAGE_BASE_URL.concat(Constants.IMAGE_WIDTH_URL).concat(movie.getPoster_path())).into(holder.movieThumbnail);
 
-        holder.movieThumbnail.setOnClickListener(view -> {
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(DetailMovieFragment.ARG_MOVIE, movie);
-            Intent intent = new Intent();
-            intent.putExtras(bundle);
-            intent.setClass(context, DetailMovieActivity.class);
-            context.startActivity(intent);
+        holder.movieThumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(DetailMovieFragment.ARG_MOVIE, movie);
+                Intent intent = new Intent();
+                intent.putExtras(bundle);
+                intent.setClass(context, DetailMovieActivity.class);
+                context.startActivity(intent);
+            }
         });
     }
 
@@ -58,11 +61,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         return movies.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView movieThumbnail;
-        ViewHolder(View itemView) {
-            super(itemView);
-            movieThumbnail = (ImageView) itemView.findViewById(R.id.movie_thumbnail);
-        }
+class ViewHolder extends RecyclerView.ViewHolder{
+    ImageView movieThumbnail;
+    ViewHolder(View itemView) {
+        super(itemView);
+        movieThumbnail = (ImageView) itemView.findViewById(R.id.movie_thumbnail);
     }
+}
 }

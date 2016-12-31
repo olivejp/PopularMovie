@@ -22,19 +22,23 @@
 
     <string name="pref_popular_movies_title">Popular movies</string>
     <string name="pref_top_rated_title">Top rated</string>
+    <string name="pref_favorite_title">Favorites</string>
 
     <string name="pref_title_sort">Movies sort by</string>
     <string-array name="pref_list_sort_titles">
         <item>@string/pref_popular_movies_title</item>
         <item>@string/pref_top_rated_title</item>
+        <item>@string/pref_favorite_title</item>
     </string-array>
 
     <string name="popularMovies">popularMovies</string>
     <string name="topRated">topRated</string>
+    <string name="favorite">favorite</string>
 
     <string-array name="pref_list_sort_values">
         <item>@string/popularMovies</item>
         <item>@string/topRated</item>
+        <item>@string/favorite</item>
     </string-array>
 
     <!-- Example settings for Data & Sync -->
@@ -91,4 +95,14 @@
     <string name="defaultcontentdescription">defaultContentDescription</string>
     <string name="vote_average">Vote average</string>
     <string name="overview">Overview</string>
+    <string name="youtube_trailer">Youtube Trailer</string>
+    <string name="trailers">Trailers</string>
+    <string name="reviews">Reviews</string>
+    <string name="add_to_favorite">Add to favorite</string>
+    <string name="title_movie_list">Movies</string>
+    <string name="title_movie_detail">Movie Detail</string>
+    <string name="backdrop">backdrop</string>
+    <string name="delete_from_favorite">Delete from favorite</string>
+    <string name="added_to_favorite">Added to favorite</string>
+    <string name="deleted_from_favorite">Deleted from favorite</string>
 </resources>
