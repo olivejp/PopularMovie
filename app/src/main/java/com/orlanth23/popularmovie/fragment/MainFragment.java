@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.orlanth23.popularmovie.R;
-import com.orlanth23.popularmovie.activity.MainActivity;
 import com.orlanth23.popularmovie.activity.SettingsActivity;
 import com.orlanth23.popularmovie.adapter.MovieAdapter;
 import com.orlanth23.popularmovie.data.MovieContract;
@@ -31,6 +31,7 @@ import com.orlanth23.popularmovie.listener.EndlessRecyclerOnScrollListener;
 import com.orlanth23.popularmovie.model.Movie;
 import com.orlanth23.popularmovie.model.ResultListMovie;
 import com.orlanth23.popularmovie.retrofitservice.MovieDbAPI;
+import com.orlanth23.popularmovie.utils.ConfSingleton;
 import com.orlanth23.popularmovie.utils.Constants;
 
 import java.util.ArrayList;
@@ -46,11 +47,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainFragment extends CustomChangeTitleFragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
-    public static final String TAG = MainActivity.class.getSimpleName();
-
     private static final String BUNDLE_ARRAY_LIST = "BUNDLE_ARRAY_LIST";
     private static final String BUNDLE_CURRENT_PAGE = "BUNDLE_CURRENT_PAGE";
 
+    private static final int NB_COLUMN_TWO_PANE_PORT = 1;
+    private static final int NB_COLUMN_TWO_PANE_LAND = 3;
     private static final int NB_COLUMN_PORT = 2;
     private static final int NB_COLUMN_LAND = 4;
 
@@ -94,18 +95,25 @@ public class MainFragment extends CustomChangeTitleFragment implements LoaderMan
         // get the recyclerVIews
         unbind = ButterKnife.bind(this, fragmentView);
         if (recyclerView != null){
+            // http://stackoverflow.com/questions/28709220/understanding-recyclerview-sethasfixedsize
             recyclerView.setHasFixedSize(true);
         }
 
-        // change the number of column depending on the screen orientation
+        // change the number of column depending on the screen orientation and if we have two panels or not
         Configuration config = getActivity().getResources().getConfiguration();
-        int nb_column = (config.orientation == Configuration.ORIENTATION_PORTRAIT) ? NB_COLUMN_PORT : NB_COLUMN_LAND;
+        ConfSingleton.getInstance();
+        int nb_column;
+        if (ConfSingleton.isTwoPane()){
+            nb_column = (config.orientation == Configuration.ORIENTATION_PORTRAIT) ? NB_COLUMN_TWO_PANE_PORT : NB_COLUMN_TWO_PANE_LAND;
+        }else{
+            nb_column = (config.orientation == Configuration.ORIENTATION_PORTRAIT) ? NB_COLUMN_PORT : NB_COLUMN_LAND;
+        }
 
         // we use a GridLayoutManager
         Context context = getActivity();
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(context, nb_column);
         recyclerView.setLayoutManager(gridLayoutManager);
-        movieAdapter = new MovieAdapter(getActivity(), arrayListMovie);
+        movieAdapter = new MovieAdapter((AppCompatActivity) getActivity(), arrayListMovie);
         recyclerView.setAdapter(movieAdapter);
 
         // call the retrofit builder

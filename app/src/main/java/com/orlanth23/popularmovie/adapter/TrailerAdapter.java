@@ -53,7 +53,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Trailer trailer = trailers.get(position);
         holder.videoTitle.setText(trailer.getName());
-        holder.videoTitle.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 watchYoutubeVideo(context, trailer.getKey());

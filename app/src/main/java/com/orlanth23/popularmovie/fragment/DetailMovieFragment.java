@@ -194,7 +194,7 @@ public class DetailMovieFragment extends CustomChangeTitleFragment {
 
             Picasso picasso = Picasso.with(getActivity());
             picasso.load(Constants.IMAGE_BASE_URL.concat(Constants.IMAGE_WIDTH_URL).concat(movie.getPoster_path())).into(image_poster);
-            picasso.load(Constants.IMAGE_BASE_URL.concat(Constants.IMAGE_WIDTH_LARGE_URL).concat(movie.getBackdrop_path())).into(img_backdrop);
+            picasso.load(Constants.IMAGE_BASE_URL.concat(Constants.IMAGE_WIDTH_LARGE_URL).concat(movie.getBackdrop_path())).fit().centerCrop().into(img_backdrop);
 
             // Change le titre qui sera affiché
             collapsingToolbarLayout.setTitle(movie.getOriginal_title());
@@ -217,7 +217,7 @@ public class DetailMovieFragment extends CustomChangeTitleFragment {
             recyclerReview.setLayoutManager(linearLayoutManagerReview);
 
             trailerAdapter = new TrailerAdapter(getActivity(), arrayListTrailer);
-            reviewAdapter = new ReviewAdapter(arrayListReview);
+            reviewAdapter = new ReviewAdapter(getActivity(), arrayListReview);
 
             recyclerTrailer.setAdapter(trailerAdapter);
             recyclerReview.setAdapter(reviewAdapter);
@@ -230,11 +230,19 @@ public class DetailMovieFragment extends CustomChangeTitleFragment {
                 }
             });
 
-            // Get the trailers
+
             if (firstLaunch) {
+                // Get the trailers
                 Call<ResultListTrailers> callbackApiTrailer = movieDbAPI.getTrailers(movie.getId(), Constants.MOVIE_DB_API_KEY);
                 if (callbackApiTrailer != null) {
                     callbackApiTrailer.enqueue(callbackTrailer);
+                }
+
+                // Get the reviews
+                Call<ResultListReview> callbackApiReviews = movieDbAPI.getReviews(movie.getId(), Constants.MOVIE_DB_API_KEY, currentPageReview);
+                if (callbackApiReviews != null) {
+                    callbackApiReviews.enqueue(callbackReview);
+                    currentPageReview++;
                 }
             }
 
@@ -279,6 +287,7 @@ public class DetailMovieFragment extends CustomChangeTitleFragment {
         return ret;
     }
 
+    // Change the buttons text
     private void updateButtons(){
         if (isMovieFavorite(movie.getId())){
             btn_add_favorite.setVisibility(View.GONE);

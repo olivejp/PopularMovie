@@ -5,38 +5,50 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.orlanth23.popularmovie.R;
-import com.orlanth23.popularmovie.fragment.MainFragment;
+import com.orlanth23.popularmovie.fragment.DetailMovieFragment;
+import com.orlanth23.popularmovie.utils.ConfSingleton;
 
 public class MainActivity extends AppCompatActivity{
 
-    private static final String FRAGMENT = "FRAGMENT";
     public static final String MAIN_BACKSTACK = "MAIN_BACKSTACK";
+    public static final String DETAILFRAGMENT_TAG = "DETAILFRAGMENT_TAG";
+    public static final String DETAIL_FRAGMENT_BUNDLE = "DETAIL_FRAGMENT_BUNDLE";
 
-    private MainFragment mainFragment;
+    private DetailMovieFragment detailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
         FragmentManager fm = getSupportFragmentManager();
 
-        if (savedInstanceState != null && savedInstanceState.containsKey(FRAGMENT)){
-            mainFragment = (MainFragment) fm.getFragment(savedInstanceState, FRAGMENT);
-        }else{
-            mainFragment = new MainFragment();
-        }
+        ConfSingleton.getInstance().setTwoPane(findViewById(R.id.fragment_detail_container) != null);
 
-        if (fm.findFragmentById(R.id.main_container) == null){
-            fm.beginTransaction().add(R.id.main_container, mainFragment, MainFragment.TAG).addToBackStack(MAIN_BACKSTACK).commit();
-        } else {
-            fm.beginTransaction().replace(R.id.main_container, mainFragment, MainFragment.TAG).addToBackStack(MAIN_BACKSTACK).commit();
+        if (ConfSingleton.getInstance().isTwoPane()) {
+
+            detailFragment = new DetailMovieFragment();
+            if (savedInstanceState == null) {
+                fm.beginTransaction()
+                        .replace(R.id.fragment_detail_container, detailFragment, DETAILFRAGMENT_TAG)
+                        .commit();
+            } else {
+                if (savedInstanceState.containsKey(DETAIL_FRAGMENT_BUNDLE)){
+                    detailFragment = (DetailMovieFragment) fm.getFragment(savedInstanceState, DETAIL_FRAGMENT_BUNDLE);
+                }
+            }
         }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        getSupportFragmentManager().putFragment(outState, FRAGMENT, mainFragment);
+//        getSupportFragmentManager().putFragment(outState, FRAGMENT, mainFragment);
+        if(ConfSingleton.getInstance().isTwoPane()){
+            if (getSupportFragmentManager().findFragmentByTag(DETAIL_FRAGMENT_BUNDLE) != null){
+                getSupportFragmentManager().putFragment(outState, DETAIL_FRAGMENT_BUNDLE, detailFragment);
+            }
+        }
     }
 }
