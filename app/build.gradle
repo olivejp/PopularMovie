@@ -10,7 +10,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.orlanth23.popularmovie"
-        minSdkVersion 13
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode 2
         versionName "2.0"
@@ -44,14 +44,15 @@ dependencies {
     compile "com.android.support:support-v4:${supportVersionLibrary}"
     compile "com.android.support:cardview-v7:${supportVersionLibrary}"
     compile "com.android.support:recyclerview-v7:${supportVersionLibrary}"
+    compile "com.android.support:support-v4:${supportVersionLibrary}"
+    compile "com.android.support:recyclerview-v7:${supportVersionLibrary}"
+    compile "com.android.support:design:${supportVersionLibrary}"
+    compile "com.android.support:support-vector-drawable:${supportVersionLibrary}"
     compile "com.squareup.retrofit2:retrofit:${retrofit2Version}"
     compile "com.squareup.retrofit2:converter-gson:${retrofit2Version}"
-    compile "com.android.support:support-vector-drawable:${supportVersionLibrary}"
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton:butterknife:8.4.0'
-    compile 'com.android.support:support-v4:25.1.0'
-    compile 'com.android.support:recyclerview-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
+
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }

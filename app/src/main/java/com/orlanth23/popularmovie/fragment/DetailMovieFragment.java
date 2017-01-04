@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,6 +30,7 @@ import com.orlanth23.popularmovie.model.Trailer;
 import com.orlanth23.popularmovie.model.Utils;
 import com.orlanth23.popularmovie.provider.MovieProvider;
 import com.orlanth23.popularmovie.retrofitservice.MovieDbAPI;
+import com.orlanth23.popularmovie.utils.ConfSingleton;
 import com.orlanth23.popularmovie.utils.Constants;
 import com.squareup.picasso.Picasso;
 
@@ -76,6 +78,8 @@ public class DetailMovieFragment extends CustomChangeTitleFragment {
     @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.btn_add_favorite) Button btn_add_favorite;
     @BindView(R.id.btn_dislike) Button btn_dislike;
+    @BindView(R.id.coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -156,6 +160,7 @@ public class DetailMovieFragment extends CustomChangeTitleFragment {
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         boolean firstLaunch = false;
+        View fragmentView;
 
         if (savedInstanceState != null){
             if (savedInstanceState.containsKey(ARG_MOVIE)) {
@@ -177,13 +182,14 @@ public class DetailMovieFragment extends CustomChangeTitleFragment {
             firstLaunch = true;
         }
 
-        // inflate the fragment detail movie
-        View fragmentView = inflater.inflate(R.layout.fragment_detail_movie, container, false);
-
-        // bind the views
-        unbind = ButterKnife.bind(this, fragmentView);
-
         if (movie != null) {
+            // inflate the fragment detail movie
+            fragmentView = inflater.inflate(R.layout.fragment_detail_movie, container, false);
+
+            // bind the views
+            unbind = ButterKnife.bind(this, fragmentView);
+
+            coordinatorLayout.setFitsSystemWindows(!ConfSingleton.getInstance().isTwoPane());
 
             // Put Add to favorite button to invisible if the movie is already in the favorites.
             if (btn_add_favorite != null) {
@@ -192,9 +198,13 @@ public class DetailMovieFragment extends CustomChangeTitleFragment {
                 }
             }
 
+            String posterPath = Constants.IMAGE_BASE_URL.concat(Constants.IMAGE_WIDTH_URL).concat(movie.getPoster_path());
+            String backDropPath = Constants.IMAGE_BASE_URL.concat(Constants.IMAGE_WIDTH_LARGE_URL).concat(movie.getBackdrop_path());
+
+            // load images
             Picasso picasso = Picasso.with(getActivity());
-            picasso.load(Constants.IMAGE_BASE_URL.concat(Constants.IMAGE_WIDTH_URL).concat(movie.getPoster_path())).into(image_poster);
-            picasso.load(Constants.IMAGE_BASE_URL.concat(Constants.IMAGE_WIDTH_LARGE_URL).concat(movie.getBackdrop_path())).fit().centerCrop().into(img_backdrop);
+            picasso.load(posterPath).into(image_poster);
+            picasso.load(backDropPath).fit().centerCrop().into(img_backdrop);
 
             // Change le titre qui sera affiché
             collapsingToolbarLayout.setTitle(movie.getOriginal_title());
@@ -247,8 +257,9 @@ public class DetailMovieFragment extends CustomChangeTitleFragment {
             }
 
             updateButtons();
+        } else{
+            fragmentView = inflater.inflate(R.layout.fragment_detail_empty, container, false);
         }
-
         return fragmentView;
     }
 
@@ -264,7 +275,9 @@ public class DetailMovieFragment extends CustomChangeTitleFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbind.unbind();
+        if (unbind != null) {
+            unbind.unbind();
+        }
     }
 
     private boolean isMovieFavorite(int movieId){

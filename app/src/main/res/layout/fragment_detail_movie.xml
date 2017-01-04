@@ -1,15 +1,16 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context="com.orlanth23.popularmovie.fragment.DetailMovieFragment"
     tools:ignore="MergeRootFrame">
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height_port"
+        android:layout_height="@dimen/app_bar_height"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -74,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
-                        android:layout_margin="10dp"
+                        android:layout_margin="@dimen/default_margin"
                         android:scaleType="centerCrop"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/defaultcontentdescription" />
@@ -93,9 +94,9 @@
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_action_favorite_star"
                             android:drawableStart="@drawable/ic_action_favorite_star"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="@dimen/default_margin"
+                            android:layout_marginRight="@dimen/default_margin"
+                            android:layout_marginEnd="@dimen/default_margin"
                             android:text="@string/add_to_favorite"/>
                         <Button
                             android:id="@+id/btn_dislike"
@@ -104,9 +105,9 @@
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_action_dislike"
                             android:drawableStart="@drawable/ic_action_dislike"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginEnd="10dp"
+                            android:layout_marginTop="@dimen/default_margin"
+                            android:layout_marginRight="@dimen/default_margin"
+                            android:layout_marginEnd="@dimen/default_margin"
                             android:text="@string/delete_from_favorite"/>
                     </LinearLayout>
 
@@ -163,9 +164,9 @@
                         android:layout_below="@+id/static_overview"
                         android:layout_alignLeft="@+id/static_overview"
                         android:layout_alignStart="@+id/static_overview"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_marginRight="@dimen/default_margin"
+                        android:layout_marginEnd="@dimen/default_margin"
+                        android:layout_marginBottom="@dimen/default_margin"/>
 
                 </RelativeLayout>
                 <RelativeLayout
@@ -178,7 +179,7 @@
                         android:text="@string/trailers"
                         android:gravity="center"
                         android:textColor="@color/colorWhite"
-                        android:padding="10dp"
+                        android:padding="@dimen/default_padding"
                         android:background="@color/colorPrimary"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
@@ -187,8 +188,8 @@
                         android:layout_below="@id/trailer_title_separator"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:layout_marginBottom="@dimen/default_margin"/>
 
                     <TextView
                         android:id="@+id/reviews_title_separator"
@@ -198,7 +199,7 @@
                         android:layout_below="@id/recycler_trailers"
                         android:gravity="center"
                         android:textColor="@color/colorWhite"
-                        android:padding="10dp"
+                        android:padding="@dimen/default_padding"
                         android:background="@color/colorPrimary"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
@@ -207,8 +208,8 @@
                         android:layout_below="@id/reviews_title_separator"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"/>
+                        android:layout_marginTop="@dimen/default_margin"
+                        android:layout_marginBottom="@dimen/default_margin"/>
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>

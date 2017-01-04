@@ -12,9 +12,6 @@ public class MainActivity extends AppCompatActivity{
 
     public static final String MAIN_BACKSTACK = "MAIN_BACKSTACK";
     public static final String DETAILFRAGMENT_TAG = "DETAILFRAGMENT_TAG";
-    public static final String DETAIL_FRAGMENT_BUNDLE = "DETAIL_FRAGMENT_BUNDLE";
-
-    private DetailMovieFragment detailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,27 +24,10 @@ public class MainActivity extends AppCompatActivity{
         ConfSingleton.getInstance().setTwoPane(findViewById(R.id.fragment_detail_container) != null);
 
         if (ConfSingleton.getInstance().isTwoPane()) {
-
-            detailFragment = new DetailMovieFragment();
             if (savedInstanceState == null) {
                 fm.beginTransaction()
-                        .replace(R.id.fragment_detail_container, detailFragment, DETAILFRAGMENT_TAG)
+                        .replace(R.id.fragment_detail_container, new DetailMovieFragment(), DETAILFRAGMENT_TAG)
                         .commit();
-            } else {
-                if (savedInstanceState.containsKey(DETAIL_FRAGMENT_BUNDLE)){
-                    detailFragment = (DetailMovieFragment) fm.getFragment(savedInstanceState, DETAIL_FRAGMENT_BUNDLE);
-                }
-            }
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-//        getSupportFragmentManager().putFragment(outState, FRAGMENT, mainFragment);
-        if(ConfSingleton.getInstance().isTwoPane()){
-            if (getSupportFragmentManager().findFragmentByTag(DETAIL_FRAGMENT_BUNDLE) != null){
-                getSupportFragmentManager().putFragment(outState, DETAIL_FRAGMENT_BUNDLE, detailFragment);
             }
         }
     }
