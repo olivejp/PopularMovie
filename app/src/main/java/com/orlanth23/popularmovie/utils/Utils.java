@@ -1,8 +1,9 @@
-package com.orlanth23.popularmovie.model;
+package com.orlanth23.popularmovie.utils;
 
 import android.content.ContentValues;
 
 import com.orlanth23.popularmovie.data.MovieContract;
+import com.orlanth23.popularmovie.model.Movie;
 
 public class Utils {
     public static ContentValues transformMovieToContentValues(Movie movie){

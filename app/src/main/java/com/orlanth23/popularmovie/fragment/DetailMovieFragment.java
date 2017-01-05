@@ -27,11 +27,11 @@ import com.orlanth23.popularmovie.model.ResultListReview;
 import com.orlanth23.popularmovie.model.ResultListTrailers;
 import com.orlanth23.popularmovie.model.Review;
 import com.orlanth23.popularmovie.model.Trailer;
-import com.orlanth23.popularmovie.model.Utils;
 import com.orlanth23.popularmovie.provider.MovieProvider;
 import com.orlanth23.popularmovie.retrofitservice.MovieDbAPI;
 import com.orlanth23.popularmovie.utils.ConfSingleton;
 import com.orlanth23.popularmovie.utils.Constants;
+import com.orlanth23.popularmovie.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
