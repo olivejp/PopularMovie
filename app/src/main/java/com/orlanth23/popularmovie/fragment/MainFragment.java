@@ -45,7 +45,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainFragment extends CustomChangeTitleFragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class MainFragment extends CustomFragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final String BUNDLE_ARRAY_LIST = "BUNDLE_ARRAY_LIST";
     private static final String BUNDLE_CURRENT_PAGE = "BUNDLE_CURRENT_PAGE";

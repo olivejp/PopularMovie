@@ -5,7 +5,7 @@ import android.content.ContentValues;
 import com.orlanth23.popularmovie.data.MovieContract;
 
 public class Utils {
-    public static ContentValues getContentValuesFromMovie(Movie movie){
+    public static ContentValues transformMovieToContentValues(Movie movie){
         ContentValues cv = new ContentValues();
         cv.put(MovieContract.MovieEntry._ID, movie.getId());
         cv.put(MovieContract.MovieEntry.COLUMN_BACKDROP_PATH, movie.getBackdrop_path());

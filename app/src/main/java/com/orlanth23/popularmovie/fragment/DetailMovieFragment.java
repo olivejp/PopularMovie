@@ -46,7 +46,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DetailMovieFragment extends CustomChangeTitleFragment {
+public class DetailMovieFragment extends CustomFragment {
 
     public static final String TAG = DetailMovieFragment.class.getSimpleName();
 
@@ -189,7 +189,8 @@ public class DetailMovieFragment extends CustomChangeTitleFragment {
             // bind the views
             unbind = ButterKnife.bind(this, fragmentView);
 
-            coordinatorLayout.setFitsSystemWindows(!ConfSingleton.getInstance().isTwoPane());
+            ConfSingleton.getInstance();
+            coordinatorLayout.setFitsSystemWindows(!ConfSingleton.isTwoPane());
 
             // Put Add to favorite button to invisible if the movie is already in the favorites.
             if (btn_add_favorite != null) {
@@ -203,8 +204,8 @@ public class DetailMovieFragment extends CustomChangeTitleFragment {
 
             // load images
             Picasso picasso = Picasso.with(getActivity());
-            picasso.load(posterPath).into(image_poster);
-            picasso.load(backDropPath).fit().centerCrop().into(img_backdrop);
+            picasso.load(posterPath).error(R.drawable.ic_no_image).into(image_poster);
+            picasso.load(backDropPath).error(R.drawable.ic_no_image).fit().centerCrop().into(img_backdrop);
 
             // Change le titre qui sera affiché
             collapsingToolbarLayout.setTitle(movie.getOriginal_title());
@@ -323,7 +324,7 @@ public class DetailMovieFragment extends CustomChangeTitleFragment {
 
     @OnClick(R.id.btn_add_favorite)
     public void addToFavorite(View view) {
-        ContentValues contentValues = Utils.getContentValuesFromMovie(movie);
+        ContentValues contentValues = Utils.transformMovieToContentValues(movie);
 
         Uri movieUri = getActivity().getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
         if (movieUri != null) {

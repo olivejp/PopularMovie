@@ -45,7 +45,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Movie movie = movies.get(position);
         String imagePath = Constants.IMAGE_BASE_URL.concat(Constants.IMAGE_WIDTH_URL).concat(movie.getPoster_path());
-        picasso.load(imagePath).into(holder.movieThumbnail);
+        picasso.load(imagePath).error(R.drawable.ic_no_image).into(holder.movieThumbnail);
 
         holder.movieThumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,13 +55,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                 bundle.putParcelable(DetailMovieFragment.ARG_MOVIE, movie);
 
                 // the singleton is used to know if we get 1 or 2 panes.
-                if (ConfSingleton.getInstance().isTwoPane()){
+                ConfSingleton.getInstance();
+                if (ConfSingleton.isTwoPane()){
+                    // if we've got two panes so we use a new fragment
                     DetailMovieFragment fragment = new DetailMovieFragment();
                     fragment.setArguments(bundle);
                     activity.getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragment_detail_container, fragment, DETAILFRAGMENT_TAG)
                             .commit();
                 }else{
+                    // if we've got one unique pane we call a new activity.
                     Intent intent = new Intent();
                     intent.putExtras(bundle);
                     intent.setClass(activity, DetailMovieActivity.class);

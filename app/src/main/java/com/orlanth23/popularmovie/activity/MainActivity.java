@@ -21,9 +21,10 @@ public class MainActivity extends AppCompatActivity{
 
         FragmentManager fm = getSupportFragmentManager();
 
-        ConfSingleton.getInstance().setTwoPane(findViewById(R.id.fragment_detail_container) != null);
+        ConfSingleton.getInstance();
+        ConfSingleton.setTwoPane(findViewById(R.id.fragment_detail_container) != null);
 
-        if (ConfSingleton.getInstance().isTwoPane()) {
+        if (ConfSingleton.isTwoPane()) {
             if (savedInstanceState == null) {
                 fm.beginTransaction()
                         .replace(R.id.fragment_detail_container, new DetailMovieFragment(), DETAILFRAGMENT_TAG)

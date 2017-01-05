@@ -28,10 +28,8 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.ViewHold
         context = p_context;
     }
 
-    /**
-     *  This method will start the youtube activity
-     **/
-    public static void watchYoutubeVideo(Context context, String id){
+    // This method will start the youtube activity
+    private static void watchYoutubeVideo(Context context, String id){
         Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
         Intent webIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse("http://www.youtube.com/watch?v=" + id));
