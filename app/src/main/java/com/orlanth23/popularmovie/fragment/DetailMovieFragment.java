@@ -38,7 +38,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -257,6 +256,32 @@ public class DetailMovieFragment extends CustomFragment {
                 }
             }
 
+            btn_add_favorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ContentValues contentValues = Utils.transformMovieToContentValues(movie);
+
+                    Uri movieUri = getActivity().getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
+                    if (movieUri != null) {
+                        Toast.makeText(getActivity(), R.string.added_to_favorite, Toast.LENGTH_SHORT).show();
+                    }
+                    updateButtons();
+                }
+            });
+
+            btn_dislike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String selectionArgs[] = new String[1];
+                    selectionArgs[0] = String.valueOf(movie.getId());
+                    int idDelete = getActivity().getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI, MovieProvider.sSelectionMovieById, selectionArgs);
+                    if (idDelete != -1) {
+                        Toast.makeText(getActivity(), R.string.deleted_from_favorite, Toast.LENGTH_SHORT).show();
+                    }
+                    updateButtons();
+                }
+            });
+
             updateButtons();
         } else{
             fragmentView = inflater.inflate(R.layout.fragment_detail_empty, container, false);
@@ -305,33 +330,14 @@ public class DetailMovieFragment extends CustomFragment {
     private void updateButtons(){
         if (isMovieFavorite(movie.getId())){
             btn_add_favorite.setVisibility(View.GONE);
+            btn_add_favorite.setEnabled(false);
             btn_dislike.setVisibility(View.VISIBLE);
+            btn_dislike.setEnabled(true);
         } else {
             btn_add_favorite.setVisibility(View.VISIBLE);
+            btn_add_favorite.setEnabled(true);
             btn_dislike.setVisibility(View.GONE);
+            btn_dislike.setEnabled(false);
         }
-    }
-
-    @OnClick(R.id.btn_dislike)
-    public void deleteFromFavorite(View view){
-        String selectionArgs[] = new String[1];
-        selectionArgs[0] = String.valueOf(movie.getId());
-
-        int idDelete = getActivity().getContentResolver().delete(MovieContract.MovieEntry.CONTENT_URI, MovieProvider.sSelectionMovieById, selectionArgs);
-
-        updateButtons();
-    }
-
-    @OnClick(R.id.btn_add_favorite)
-    public void addToFavorite(View view) {
-        ContentValues contentValues = Utils.transformMovieToContentValues(movie);
-
-        Uri movieUri = getActivity().getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, contentValues);
-        if (movieUri != null) {
-            Toast.makeText(getActivity(), R.string.added_to_favorite, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getActivity(), R.string.deleted_from_favorite, Toast.LENGTH_SHORT).show();
-        }
-        updateButtons();
     }
 }
