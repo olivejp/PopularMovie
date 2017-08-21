@@ -219,14 +219,8 @@ public class MainFragment extends CustomFragment implements LoaderManager.Loader
         unbind.unbind();
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Uri CONTENT_URI = MovieContract.MovieEntry.CONTENT_URI;
-        return new CursorLoader(getActivity(), CONTENT_URI, null, null, null, null);
-    }
-
-    private Movie getMovieFromCursor(Cursor cursor, int position){
-        if (cursor.moveToPosition(position)){
+    private Movie getMovieFromCursor(Cursor cursor, int position) {
+        if (cursor.moveToPosition(position)) {
             Movie movie = new Movie();
             movie.setId(cursor.getInt(cursor.getColumnIndex(MovieContract.MovieEntry._ID)));
             movie.setOriginal_title(cursor.getString(cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_ORIGINAL_TITLE)));
@@ -237,9 +231,15 @@ public class MainFragment extends CustomFragment implements LoaderManager.Loader
             movie.setRelease_date(cursor.getString(cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_RELEASE_DATE)));
             movie.setVote_average(cursor.getInt(cursor.getColumnIndex(MovieContract.MovieEntry.COLUMN_VOTE_AVERAGE)));
             return movie;
-        }else{
+        } else {
             return null;
         }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Uri CONTENT_URI = MovieContract.MovieEntry.CONTENT_URI;
+        return new CursorLoader(getActivity(), CONTENT_URI, null, null, null, null);
     }
 
     @Override
