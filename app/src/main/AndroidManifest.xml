@@ -16,10 +16,11 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.MainActivity" />
         <activity
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -28,7 +29,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.orlanth23.popularmovie.activity.MainActivity" />
         </activity>
-        <activity android:name=".activity.DetailMovieActivity"
+        <activity
+            android:name=".activity.DetailMovieActivity"
             android:label="@string/title_movie_detail"
             android:parentActivityName=".activity.MainActivity">
             <meta-data
@@ -41,6 +43,7 @@
             android:authorities="com.orlanth23.popularmovie"
             android:exported="false" />
 
+        <activity android:name=".activity.Main2Activity"></activity>
     </application>
 
 </manifest>
