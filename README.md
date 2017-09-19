@@ -4,6 +4,8 @@ PopularMovie
 Android app, that allow you to list the most popular movies.
 You can also add movies to a list of favorites.
 
+[![Build Status](https://travis-ci.org/olivejp/PopularMovie.svg?branch=master)](https://travis-ci.org/olivejp/PopularMovie)
+
 Install
 -------
 
