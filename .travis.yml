@@ -42,4 +42,4 @@ env:
     - google-gdk-license-.+
 
 script:
-- "./gradlew clean build connectedCheck -PdisablePreDex --stacktrace"
+- "gradle clean build connectedCheck -PdisablePreDex --stacktrace"
