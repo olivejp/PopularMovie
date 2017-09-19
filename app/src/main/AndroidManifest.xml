@@ -42,8 +42,6 @@
             android:name=".provider.MovieProvider"
             android:authorities="com.orlanth23.popularmovie"
             android:exported="false" />
-
-        <activity android:name=".activity.Main2Activity"></activity>
     </application>
 
 </manifest>
