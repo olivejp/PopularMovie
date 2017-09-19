@@ -22,7 +22,7 @@ android:
     - addon-google_apis-google-19
 
     # System image to download for the connected test
-    - sys-img-armeabi-v7a-addon-google_apis-google-android-21
+    # - sys-img-armeabi-v7a-addon-google_apis-google-android-21
 
   licenses:
     - android-sdk-preview-license-.+
@@ -38,11 +38,11 @@ before_install:
 
 script:
   - ./gradlew clean build -PdisablePreDex --stacktrace
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
-  - ./gradlew connectedCheck
+  # - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  # - emulator -avd test -no-skin -no-audio -no-window &
+  # - android-wait-for-emulator
+  # - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
+  # - ./gradlew connectedCheck
 
 branches:
   only:
