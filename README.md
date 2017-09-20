@@ -5,18 +5,35 @@ Android app that allows you to list the most popular movies.
 You can also add movies to a list of favorites.
 
 [![Build Status](https://travis-ci.org/olivejp/PopularMovie.svg?branch=master)](https://travis-ci.org/olivejp/PopularMovie)
+[![Build Status](https://www.bitrise.io/app/3f16bf162aa3542f/status.svg?token=wLcTbLnRjnnQSjT8qVelBQ)](https://www.bitrise.io/app/3f16bf162aa3542f)
 
 Install
 -------
 
-To work, this application need an themoviedb account.
+To work, this application needs a themoviedb account.
 If you don't have one, go to : [themoviedb.org](https://www.themoviedb.org/)
-Once you're logged, go to [Your settings](https://www.themoviedb.org/settings/api) and you'll find your API Read Access Token.
+Once you've created your account, go to [Your settings](https://www.themoviedb.org/settings/api) and you'll find your API Key (v3 auth).
 
-Add your movieDB API key on the utils/Constants class in MOVIE_DB_API_KEY attribute.
+Depending on which type of build you want, follow those steps :
+
+#### Debug build
+
+In the build.gradle file, replace "your_api_key_here" by your API key :
 ```java
-public static final String MOVIE_DB_API_KEY = "my_api_read_access_token";
+debug {
+    buildConfigField("String", "API_KEY", "your_api_key_here")
+}
 ```
+
+#### Release build
+
+For the release build, create a new environment variable named **ORG_GRADLE_PROJECT_API_KEY** and put your API key into it.
+Gradle will automatically found your variable and you'll be able to call it into your script through API_KEY variable.
+
+Contact
+-------
+
+Feel free to contact [me](orlanth23@gmail.com)
 
 License
 -------
@@ -26,7 +43,7 @@ License
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+       [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,

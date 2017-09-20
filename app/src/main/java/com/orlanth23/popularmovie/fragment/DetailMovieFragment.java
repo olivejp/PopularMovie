@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.orlanth23.popularmovie.BuildConfig;
 import com.orlanth23.popularmovie.R;
 import com.orlanth23.popularmovie.adapter.ReviewAdapter;
 import com.orlanth23.popularmovie.adapter.TrailerAdapter;
@@ -243,13 +244,13 @@ public class DetailMovieFragment extends CustomFragment {
 
             if (firstLaunch) {
                 // Get the trailers
-                Call<ResultListTrailers> callbackApiTrailer = movieDbAPI.getTrailers(movie.getId(), Constants.MOVIE_DB_API_KEY);
+                Call<ResultListTrailers> callbackApiTrailer = movieDbAPI.getTrailers(movie.getId(), BuildConfig.API_KEY);
                 if (callbackApiTrailer != null) {
                     callbackApiTrailer.enqueue(callbackTrailer);
                 }
 
                 // Get the reviews
-                Call<ResultListReview> callbackApiReviews = movieDbAPI.getReviews(movie.getId(), Constants.MOVIE_DB_API_KEY, currentPageReview);
+                Call<ResultListReview> callbackApiReviews = movieDbAPI.getReviews(movie.getId(), BuildConfig.API_KEY, currentPageReview);
                 if (callbackApiReviews != null) {
                     callbackApiReviews.enqueue(callbackReview);
                     currentPageReview++;
@@ -291,7 +292,7 @@ public class DetailMovieFragment extends CustomFragment {
 
     private void loadMoreReview(int p_currentPage) {
         Call<ResultListReview> callbackApi;
-        callbackApi = movieDbAPI.getReviews(movie.getId(), Constants.MOVIE_DB_API_KEY, p_currentPage);
+        callbackApi = movieDbAPI.getReviews(movie.getId(), BuildConfig.API_KEY, p_currentPage);
         if (callbackApi != null) {
             callbackApi.enqueue(callbackReview);
             currentPageReview++;

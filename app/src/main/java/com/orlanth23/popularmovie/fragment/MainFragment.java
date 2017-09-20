@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.orlanth23.popularmovie.BuildConfig;
 import com.orlanth23.popularmovie.R;
 import com.orlanth23.popularmovie.activity.SettingsActivity;
 import com.orlanth23.popularmovie.adapter.MovieAdapter;
@@ -198,10 +199,10 @@ public class MainFragment extends CustomFragment implements LoaderManager.Loader
         Call<ResultListMovie> callbackApi = null;
         switch (sharedPreferences.getString(getString(R.string.pref_key_list_sort), getString(R.string.popularMovies))){
             case "popularMovies":
-                callbackApi = movieDbAPI.getPopularMovies(Constants.MOVIE_DB_API_KEY, p_currentPage);
+                callbackApi = movieDbAPI.getPopularMovies(BuildConfig.API_KEY, p_currentPage);
                 break;
             case "topRated":
-                callbackApi = movieDbAPI.getTopRated(Constants.MOVIE_DB_API_KEY, p_currentPage);
+                callbackApi = movieDbAPI.getTopRated(BuildConfig.API_KEY, p_currentPage);
                 break;
             case "favorite":
                 getActivity().getSupportLoaderManager().initLoader(1, null, this);

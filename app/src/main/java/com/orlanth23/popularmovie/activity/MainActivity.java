@@ -3,7 +3,9 @@ package com.orlanth23.popularmovie.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
+import com.orlanth23.popularmovie.BuildConfig;
 import com.orlanth23.popularmovie.R;
 import com.orlanth23.popularmovie.fragment.DetailMovieFragment;
 import com.orlanth23.popularmovie.utils.ConfSingleton;
