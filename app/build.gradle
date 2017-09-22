@@ -33,7 +33,7 @@ android {
             buildConfigField("String", "API_KEY", "your_api_key_here")
         }
         release {
-            buildConfigField("String", "API_KEY", "\"${API_KEY}\"")
+            buildConfigField("String", "API_KEY", "\"${System.getenv('API_KEY')}\"")
             minifyEnabled false
             debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
