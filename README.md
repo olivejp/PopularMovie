@@ -16,7 +16,7 @@ Once you've created your account, go to [Your settings](https://www.themoviedb.o
 
 Depending on which type of build you want, follow those steps :
 
-#### Debug build
+### Debug build
 
 In the build.gradle file, replace "your_api_key_here" by your API key :
 ```java
@@ -25,9 +25,11 @@ debug {
 }
 ```
 
-#### Release build
+### Release build
 
-For the release build, create a new environment variable named **ORG_GRADLE_PROJECT_API_KEY** and put your API key into it.
+For the release build, create a new environment variable named **ORG_GRADLE_PROJECT_API_KEY**
+Put your API key into it.
+
 Gradle will automatically found your variable and you'll be able to call it into your script through API_KEY variable.
 
 Contact
